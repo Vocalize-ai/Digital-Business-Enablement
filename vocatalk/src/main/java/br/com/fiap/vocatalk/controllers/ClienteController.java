@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.fiap.vocatalk.exception.RestNotFoundException;
 import br.com.fiap.vocatalk.models.Cliente;
 import br.com.fiap.vocatalk.repository.ClienteRepository;
 import jakarta.validation.Valid;
@@ -43,35 +44,26 @@ public class ClienteController {
     
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> encontraClientePorId(@RequestParam Long id) {
-       
-        var clienteEncontrado = clienteRepository.findById(id);
-       
-        return ResponseEntity.ok((clienteEncontrado.get()));
+        return ResponseEntity.ok(getCliente(id));
     }
     
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> atualizaCadastro(@Valid @PathVariable Long id, @RequestBody Cliente cliente) {
-
-        var clientencontrado = clienteRepository.findById(id);
-
-        if (clientencontrado.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+        getCliente(id);
         cliente.setId(id);
         clienteRepository.save(cliente);
-
         return ResponseEntity.ok(cliente);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Cliente> removerCadastro(@PathVariable Long id) {
         
-       var clienteEncontrado = clienteRepository.findById(id);
-        if(clienteEncontrado.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        clienteRepository.delete(clienteEncontrado.get());
+        clienteRepository.delete(getCliente(id));
 
         return ResponseEntity.noContent().build();
     }
+
+    private Cliente getCliente(Long id) {
+        return clienteRepository.findById(id).orElseThrow(() -> new RestNotFoundException("cliente não encontrado"));
+}
 }
