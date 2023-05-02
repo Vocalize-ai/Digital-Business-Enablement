@@ -48,7 +48,7 @@ public class ClienteController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> atualizaCadastro(@Valid @PathVariable Long id, @RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> atualizaCliente(@Valid @PathVariable Long id, @RequestBody Cliente cliente) {
         getCliente(id);
         cliente.setId(id);
         clienteRepository.save(cliente);
@@ -56,7 +56,7 @@ public class ClienteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Cliente> removerCadastro(@PathVariable Long id) {
+    public ResponseEntity<Cliente> removerCliente(@PathVariable Long id) {
         
         clienteRepository.delete(getCliente(id));
 
