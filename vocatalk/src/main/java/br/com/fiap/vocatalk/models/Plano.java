@@ -1,10 +1,14 @@
 package br.com.fiap.vocatalk.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -51,4 +55,8 @@ public class Plano {
     @Size(min = 0, max= 60)
     @Column(name="ds_plano")
     private String descricao;
+
+    @OneToMany(mappedBy = "plano")
+    private List<ItensFatura> itensFatura = new ArrayList<ItensFatura>();
+
 }

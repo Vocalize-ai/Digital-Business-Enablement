@@ -2,6 +2,8 @@ package br.com.fiap.vocatalk.models;
 
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -10,6 +12,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -47,4 +51,16 @@ public class Cliente {
     @Temporal(TemporalType.DATE)
     @Column(name="dt_cadastro")
     private Date datacadastro;
+
+    @OneToOne(mappedBy = "cliente")
+    private Login login;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Endereco> endereco = new ArrayList<Endereco>();
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Fatura> fatura = new ArrayList<Fatura>();
+
+    @OneToMany(mappedBy = "cliente")
+    private List<TelefoneContato> telefoneContato = new ArrayList<TelefoneContato>();
 }

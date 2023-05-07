@@ -1,10 +1,14 @@
 package br.com.fiap.vocatalk.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -38,4 +42,7 @@ public class ServicoAdicional {
     @Size(min = 10, max = 60)
     @Column(name="ds_servico_adional")
     private String descricao;
+
+    @OneToMany(mappedBy = "servicoAdicional")
+    private List<ItensFatura> itensFaturas = new ArrayList<ItensFatura>();
 }

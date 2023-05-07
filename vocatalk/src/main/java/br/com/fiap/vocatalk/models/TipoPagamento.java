@@ -1,11 +1,14 @@
 package br.com.fiap.vocatalk.models;
 
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -33,4 +36,7 @@ public class TipoPagamento {
     @Size(min = 0, max = 80)
     @Column(name = "ds_tipo_pagamento")
     private String descricao;
+
+    @OneToMany(mappedBy = "tipoPagamento")
+    private List<Fatura> faturas;
 }
