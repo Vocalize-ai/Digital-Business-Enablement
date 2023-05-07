@@ -37,19 +37,19 @@ public class ItensFaturaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(itensFatura);
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<ItensFatura> encontraItensFaturaPorId(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<ItensFatura> encontraItensFaturaPorId(@PathVariable  Long id) {
         return ResponseEntity.ok(getItensFatura(id));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ItensFatura> removeItensFatura(@PathVariable Long id) {
 
         itensFaturaRepository.delete(getItensFatura(id));
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ItensFatura> atualizaItensFatura(@PathVariable Long id, @RequestBody @Valid ItensFatura itensFatura) {
         getItensFatura(id);
         itensFatura.setId(id);
@@ -59,6 +59,6 @@ public class ItensFaturaController {
 
     private ItensFatura getItensFatura(Long id) {
         return itensFaturaRepository.findById(id)
-                .orElseThrow(() -> new RestNotFoundException("itens da fatura não encontrado"));
+                .orElseThrow(() -> new RestNotFoundException("Itens da fatura não encontrado"));
     }
 }

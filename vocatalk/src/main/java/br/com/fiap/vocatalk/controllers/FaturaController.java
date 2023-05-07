@@ -37,19 +37,19 @@ public class FaturaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(fatura);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Fatura> encontraFaturaPorId(@PathVariable Long id) {
         return ResponseEntity.ok(getFatura(id));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Fatura> removeFatura(@PathVariable Long id) {
 
         faturaRepository.delete(getFatura(id));
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Fatura> atualizaFatura(@PathVariable Long id, @RequestBody @Valid Fatura fatura) {
         getFatura(id);
         fatura.setId(id);
@@ -59,6 +59,6 @@ public class FaturaController {
 
     private Fatura getFatura(Long id) {
         return faturaRepository.findById(id)
-                .orElseThrow(() -> new RestNotFoundException("fatura não encontrada"));
+                .orElseThrow(() -> new RestNotFoundException("Fatura não encontrada"));
     }
 }

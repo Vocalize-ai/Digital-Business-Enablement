@@ -20,7 +20,7 @@ import br.com.fiap.vocatalk.repository.PlanoRepository;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("api/plano")
+@RequestMapping("/api/plano")
 public class PlanoController {
  
     @Autowired
@@ -32,24 +32,24 @@ public class PlanoController {
     }
 
     @PostMapping
-    public ResponseEntity<Plano> cadastraPlano(@RequestBody @Valid Plano Plano) {
-        planoRepository.save(Plano);
-        return ResponseEntity.status(HttpStatus.CREATED).body(Plano);
+    public ResponseEntity<Plano> cadastraPlano(@RequestBody @Valid Plano plano) {
+        planoRepository.save(plano);
+        return ResponseEntity.status(HttpStatus.CREATED).body(plano);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Plano> encontraPlanoPorId(@PathVariable Long id) {
         return ResponseEntity.ok(getPlano(id));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Plano> removePlano(@PathVariable Long id) {
 
         planoRepository.delete(getPlano(id));
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Plano> atualizaPlano(@PathVariable Long id, @RequestBody @Valid Plano plano) {
         getPlano(id);
         plano.setId(id);
@@ -59,6 +59,6 @@ public class PlanoController {
 
     private Plano getPlano(Long id) {
         return planoRepository.findById(id)
-                .orElseThrow(() -> new RestNotFoundException("plano não encontrado"));
+                .orElseThrow(() -> new RestNotFoundException("Plano não encontrado"));
     }
 }

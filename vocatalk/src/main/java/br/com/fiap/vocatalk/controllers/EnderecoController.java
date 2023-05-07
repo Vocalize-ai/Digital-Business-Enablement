@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.vocatalk.exception.RestNotFoundException;
@@ -21,7 +20,7 @@ import br.com.fiap.vocatalk.repository.EnderecoRepository;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("api/endereco")
+@RequestMapping("/api/endereco")
 public class EnderecoController {
     
     @Autowired
@@ -39,7 +38,7 @@ public class EnderecoController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<Endereco> encontraEnderecoPorId(@RequestParam Long id) {
+    public ResponseEntity<Endereco> encontraEnderecoPorId(@PathVariable Long id) {
         return ResponseEntity.ok(getEndereco(id));
     }
     
