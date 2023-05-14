@@ -56,7 +56,7 @@ public class Login implements UserDetails {
     @OneToOne
     @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;
-    
+
 
     @Override
     public String getPassword() {
@@ -92,8 +92,6 @@ public class Login implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USUARIO"));
     }
-
-
 
 
 }
