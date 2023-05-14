@@ -36,10 +36,6 @@ public class Telefone {
     @Column(name="nr_telefone",unique = true)
     private String telefone;
 
-    @Size(min = 0, max = 20)
-    @Column(name="tp_contato")
-    private String tipoContato;
-
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;

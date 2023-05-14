@@ -5,8 +5,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.validator.constraints.br.CPF;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,23 +42,19 @@ public class Cliente {
     @NotBlank(message = "O cpf tem que ser preenchido")
     @Size(min=11, max= 11)
     @Column(name="nr_cpf", unique = true)
-    @CPF
     private String cpf;
     
     @NotNull(message = "A data não pode ser nula")
     @Temporal(TemporalType.DATE)
     @Column(name="dt_cadastro")
-    private Date datacadastro;
+    private Date dataCadastro;
 
     @OneToOne(mappedBy = "cliente")
     private Login login;
 
     @OneToMany(mappedBy = "cliente")
-    private List<Endereco> endereco = new ArrayList<Endereco>();
-
-    @OneToMany(mappedBy = "cliente")
     private List<Fatura> fatura = new ArrayList<Fatura>();
 
     @OneToMany(mappedBy = "cliente")
-    private List<Telefone> telefoneContato = new ArrayList<Telefone>();
+    private Telefone telefoneContato;
 }

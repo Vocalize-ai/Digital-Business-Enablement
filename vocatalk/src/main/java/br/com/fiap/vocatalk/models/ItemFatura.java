@@ -34,7 +34,7 @@ public class ItemFatura {
     private Long id;
 
     @NotNull(message = "O status do item da fatura não pode ser nulo")
-    @Column(name = "status")
+    @Column(name = "st_item")
     private Character status;
 
     @NotNull(message = "A data não pode ser nula")
@@ -47,7 +47,10 @@ public class ItemFatura {
     private Plano plano;
 
     @ManyToMany
-    @JoinTable(name = "t_vt_itens_fat_serv_add", joinColumns = @JoinColumn(name = "id_item_fatura"), inverseJoinColumns = @JoinColumn(name = "id_servico_adicional"))
+    @JoinTable(
+        name = "t_vt_itens_fat_serv_add", 
+        joinColumns = @JoinColumn(name = "id_item_fatura"), 
+        inverseJoinColumns = @JoinColumn(name = "id_servico_adicional"))
     private List<ServicoAdicional> servicosAdicionais;
 
     @OneToOne(mappedBy = "itensFatura")
