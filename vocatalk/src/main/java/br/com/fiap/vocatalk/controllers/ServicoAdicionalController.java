@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/api/servicoAdicional")
+@RequestMapping("/servicoAdicional")
 public class ServicoAdicionalController {
     
     @Autowired

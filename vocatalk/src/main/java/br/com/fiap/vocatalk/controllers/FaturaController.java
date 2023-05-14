@@ -20,7 +20,7 @@ import br.com.fiap.vocatalk.repository.FaturaRepository;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/fatura")
+@RequestMapping("/fatura")
 public class FaturaController {
     
     @Autowired

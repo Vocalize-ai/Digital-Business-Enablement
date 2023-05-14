@@ -55,6 +55,6 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente")
     private List<Fatura> fatura = new ArrayList<Fatura>();
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToOne(mappedBy = "cliente")
     private Telefone telefoneContato;
 }

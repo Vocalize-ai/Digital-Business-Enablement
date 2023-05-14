@@ -20,7 +20,7 @@ import br.com.fiap.vocatalk.repository.TipoPagamentoRepository;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/tipoPagamento")
+@RequestMapping("/tipoPagamento")
 public class TipoPagamentoController {
     
     @Autowired

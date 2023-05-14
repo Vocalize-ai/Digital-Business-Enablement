@@ -21,7 +21,7 @@ import br.com.fiap.vocatalk.repository.TelefoneContatoRepository;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/telefone")
+@RequestMapping("/telefone")
 public class TelefoneController {
  
     @Autowired

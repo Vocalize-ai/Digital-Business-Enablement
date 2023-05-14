@@ -20,7 +20,7 @@ import br.com.fiap.vocatalk.repository.PlanoRepository;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/plano")
+@RequestMapping("/plano")
 public class PlanoController {
  
     @Autowired
