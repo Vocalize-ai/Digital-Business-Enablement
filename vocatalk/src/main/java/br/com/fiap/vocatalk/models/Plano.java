@@ -1,14 +1,12 @@
 package br.com.fiap.vocatalk.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -23,17 +21,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="t_vt_plano")
+@Table(name = "T_VT_PLANO")
 public class Plano {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id_plano")
+    @Column(name = "id_plano")
     private Long id;
 
-    @Size(min = 5, max =40)
+    @Size(min = 5, max = 40)
     @NotBlank(message = "O nome do plano tem que ser preenchido")
-    @Column(name="nm_plano")
+    @Column(name = "nm_plano")
     private String nome;
 
     @NotNull(message = "A quantidade de minutos não pode ser nula")
@@ -49,14 +47,10 @@ public class Plano {
     private int qtdInternet;
 
     @NotNull(message = "O valor mensal não pode ser nulo")
-    @Column(name="vlr_mensal", precision = 10, scale = 2)
-    private double valorMensal;
+    @Column(name = "vlr_mensal", precision = 10, scale = 2)
+    private BigDecimal valorMensal;
 
-    @Size(min = 0, max= 60)
-    @Column(name="ds_plano")
+    @Size(min = 0, max = 60)
+    @Column(name = "ds_plano")
     private String descricao;
-
-    @OneToMany(mappedBy = "plano")
-    private List<ItensFatura> itensFatura = new ArrayList<ItensFatura>();
-
 }

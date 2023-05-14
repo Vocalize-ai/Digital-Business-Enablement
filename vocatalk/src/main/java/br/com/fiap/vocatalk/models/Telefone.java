@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name="t_vt_telefone_contato")
-public class TelefoneContato {
+public class Telefone {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

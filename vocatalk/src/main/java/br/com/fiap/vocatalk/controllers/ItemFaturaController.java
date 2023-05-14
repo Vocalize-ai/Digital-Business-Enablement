@@ -15,49 +15,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.vocatalk.exception.RestNotFoundException;
-import br.com.fiap.vocatalk.models.ItensFatura;
-import br.com.fiap.vocatalk.repository.ItensFaturaRepository;
+import br.com.fiap.vocatalk.models.ItemFatura;
+import br.com.fiap.vocatalk.repository.ItemFaturaRepository;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/itensFatura")
-public class ItensFaturaController {
+@RequestMapping("/api/itemFatura")
+public class ItemFaturaController {
     
     @Autowired
-    ItensFaturaRepository itensFaturaRepository;
+    ItemFaturaRepository itensFaturaRepository;
 
     @GetMapping
-    public List<ItensFatura> todosItensFatura() {
+    public List<ItemFatura> todosItensFatura() {
         return itensFaturaRepository.findAll();
     }
 
     @PostMapping
-    public ResponseEntity<ItensFatura> cadastraItensFatura(@RequestBody @Valid ItensFatura itensFatura) {
+    public ResponseEntity<ItemFatura> cadastraItensFatura(@RequestBody @Valid ItemFatura itensFatura) {
         itensFaturaRepository.save(itensFatura);
         return ResponseEntity.status(HttpStatus.CREATED).body(itensFatura);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ItensFatura> encontraItensFaturaPorId(@PathVariable  Long id) {
+    public ResponseEntity<ItemFatura> encontraItensFaturaPorId(@PathVariable  Long id) {
         return ResponseEntity.ok(getItensFatura(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ItensFatura> removeItensFatura(@PathVariable Long id) {
+    public ResponseEntity<ItemFatura> removeItensFatura(@PathVariable Long id) {
 
         itensFaturaRepository.delete(getItensFatura(id));
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ItensFatura> atualizaItensFatura(@PathVariable Long id, @RequestBody @Valid ItensFatura itensFatura) {
+    public ResponseEntity<ItemFatura> atualizaItensFatura(@PathVariable Long id, @RequestBody @Valid ItemFatura itensFatura) {
         getItensFatura(id);
         itensFatura.setId(id);
         itensFaturaRepository.save(itensFatura);
         return ResponseEntity.ok(itensFatura);
     }
 
-    private ItensFatura getItensFatura(Long id) {
+    private ItemFatura getItensFatura(Long id) {
         return itensFaturaRepository.findById(id)
                 .orElseThrow(() -> new RestNotFoundException("Itens da fatura não encontrado"));
     }

@@ -16,36 +16,36 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import br.com.fiap.vocatalk.exception.RestNotFoundException;
-import br.com.fiap.vocatalk.models.TelefoneContato;
+import br.com.fiap.vocatalk.models.Telefone;
 import br.com.fiap.vocatalk.repository.TelefoneContatoRepository;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/telefoneContato")
-public class TelefoneContatoController {
+@RequestMapping("/api/telefone")
+public class TelefoneController {
  
     @Autowired
     TelefoneContatoRepository telefoneContatoRepository;
 
     
     @GetMapping
-    public List<TelefoneContato> todosTelefonesContato() {
+    public List<Telefone> todosTelefonesContato() {
         return telefoneContatoRepository.findAll();
     }
     
     @PostMapping
-    public ResponseEntity<TelefoneContato> cadastrarTelefoneContato(@RequestBody @Valid TelefoneContato telefoneContato){
+    public ResponseEntity<Telefone> cadastrarTelefoneContato(@RequestBody @Valid Telefone telefoneContato){
         telefoneContatoRepository.save(telefoneContato);
         return ResponseEntity.status(HttpStatus.CREATED).body(telefoneContato);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TelefoneContato> encotraTelefoneContatoPorId(@PathVariable Long id){
+    public ResponseEntity<Telefone> encotraTelefoneContatoPorId(@PathVariable Long id){
         return ResponseEntity.ok(getTelefoneContato(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TelefoneContato> atualizaTelefoneContato(@Valid @PathVariable Long id, @RequestBody TelefoneContato telefoneContato){
+    public ResponseEntity<Telefone> atualizaTelefoneContato(@Valid @PathVariable Long id, @RequestBody Telefone telefoneContato){
         getTelefoneContato(id);
         telefoneContato.setId(id);
         telefoneContatoRepository.save(telefoneContato);
@@ -53,12 +53,12 @@ public class TelefoneContatoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<TelefoneContato> removeTelefoneContato(@PathVariable Long id){
+    public ResponseEntity<Telefone> removeTelefoneContato(@PathVariable Long id){
         telefoneContatoRepository.delete(getTelefoneContato(id));
         return ResponseEntity.noContent().build();
     }
         
-    private TelefoneContato getTelefoneContato(Long id) {
+    private Telefone getTelefoneContato(Long id) {
         return telefoneContatoRepository.findById(id)
                 .orElseThrow(() -> new RestNotFoundException("Telefone de contato não encontrado"));
     }
