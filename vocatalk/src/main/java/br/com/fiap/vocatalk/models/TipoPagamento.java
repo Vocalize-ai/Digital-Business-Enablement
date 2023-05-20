@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,15 +30,18 @@ public class TipoPagamento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_tipo_pagamento")
+    @Schema(example = "1")
     private Long id;
 
     @Size(min = 2, max = 50)
     @NotBlank(message = "O nome do tipo de pagamento tem que ser preenchido")
     @Column(name = "nm_tipo_pagamento")
+    @Schema(example = "Boleto")
     private String nome;
 
     @Size(min = 0, max = 80)
     @Column(name = "ds_tipo_pagamento")
+    @Schema(example = "Pagamento boleto")
     private String descricao;
 
     @OneToMany(mappedBy = "tipoPagamento")

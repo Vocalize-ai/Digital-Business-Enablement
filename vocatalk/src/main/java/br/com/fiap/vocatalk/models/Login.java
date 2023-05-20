@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.fiap.vocatalk.dto.LoginDTO;
 import br.com.fiap.vocatalk.dto.LoginInjectDTO;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,21 +41,25 @@ public class Login implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_login")
+    @Schema(example = "1")
     private Long id;
 
     @NotBlank(message = "O e-mail tem que ser preenchido")
     @Email
     @Column(name = "ds_email", unique = true)
+    @Schema(example = "luan.reis@rm.com")
     private String email;
 
     @NotBlank(message = "A senha tem que ser preenchida")
     @Size(min = 8)
     @Column(name="ds_senha")
+    @Schema(example = "23131321321")
     private String senha;
 
     @NotNull(message = "A data não pode ser nula")
     @Column(name="dt_ultimo_login")
     @Temporal(TemporalType.TIMESTAMP)
+    @Schema(example = "2023-05-20T10:30:00")
     private LocalDateTime ultimoLogin;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
