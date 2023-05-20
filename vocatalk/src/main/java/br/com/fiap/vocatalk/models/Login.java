@@ -46,7 +46,7 @@ public class Login implements UserDetails {
     private String email;
 
     @NotBlank(message = "A senha tem que ser preenchida")
-    @Size(min = 8,max=20)
+    @Size(min = 8)
     @Column(name="ds_senha")
     private String senha;
 
@@ -95,5 +95,13 @@ public class Login implements UserDetails {
         return List.of(new SimpleGrantedAuthority("ROLE_USUARIO"));
     }
 
+    @Override
+    public String toString() {
+        return "Login [id=" + id + ", email=" + email + ", senha=" + senha + ", ultimoLogin=" + ultimoLogin
+                + ", cliente=" + cliente + "]";
+    }
+
+
+    
 
 }

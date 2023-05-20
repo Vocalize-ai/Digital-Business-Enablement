@@ -3,8 +3,11 @@ package br.com.fiap.vocatalk.models;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -46,5 +49,11 @@ public class ServicoAdicional {
 
     @ManyToMany(mappedBy = "servicosAdicionais")
     private List<ItemFatura> itensFatura;
+
+    public ServicoAdicional(String nome, BigDecimal valor, String descricao) {
+        this.nome = nome;
+        this.valor = valor;
+        this.descricao = descricao;
+    }
 
 }

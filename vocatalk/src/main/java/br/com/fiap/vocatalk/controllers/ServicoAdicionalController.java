@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import br.com.fiap.vocatalk.exception.RestNotFoundException;
+import br.com.fiap.vocatalk.exceptions.RestNotFoundException;
 import br.com.fiap.vocatalk.models.ServicoAdicional;
-import br.com.fiap.vocatalk.repository.ServicoAdicionalRepository;
+import br.com.fiap.vocatalk.repositories.ServicoAdicionalRepository;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.DeleteMapping;

@@ -3,6 +3,8 @@ package br.com.fiap.vocatalk.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,5 +40,12 @@ public class TipoPagamento {
     private String descricao;
 
     @OneToMany(mappedBy = "tipoPagamento")
+    @JsonIgnore
     private List<Fatura> faturas;
+
+
+    public TipoPagamento(String nome, String descricao) {
+        this.nome = nome;
+        this.descricao = descricao;
+    }
 }

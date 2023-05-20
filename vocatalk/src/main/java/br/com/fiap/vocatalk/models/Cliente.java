@@ -1,15 +1,20 @@
 package br.com.fiap.vocatalk.models;
 
-
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -26,35 +31,46 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="t_vt_cliente")
-public class Cliente {
-    
+@Table(name = "t_vt_cliente")
+public class Cliente implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_cliente")
+    @Column(name = "id_cliente")
     private Long id;
 
     @NotBlank(message = "O nome tem que ser preenchido")
-    @Size(min = 0, max= 120)
-    @Column(name="nm_cliente")
+    @Size(min = 0, max = 120)
+    @Column(name = "nm_cliente")
     private String nome;
 
     @NotBlank(message = "O cpf tem que ser preenchido")
-    @Size(min=11, max= 11)
-    @Column(name="nr_cpf", unique = true)
+    @Size(min = 11, max = 11)
+    @Column(name = "nr_cpf", unique = true)
     private String cpf;
-    
+
     @NotNull(message = "A data não pode ser nula")
     @Temporal(TemporalType.DATE)
-    @Column(name="dt_cadastro")
+    @Column(name = "dt_cadastro")
     private Date dataCadastro;
 
-    @OneToOne(mappedBy = "cliente")
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore 
     private Login login;
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Fatura> fatura = new ArrayList<Fatura>();
 
-    @OneToOne(mappedBy = "cliente")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_telefone_contato")
     private Telefone telefoneContato;
+
+    @Override
+    public String toString() {
+        return "Cliente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", dataCadastro=" + dataCadastro + ", login="
+                + login + ", fatura=" + fatura + ", telefoneContato=" + telefoneContato + "]";
+    }
+
+
+    
 }

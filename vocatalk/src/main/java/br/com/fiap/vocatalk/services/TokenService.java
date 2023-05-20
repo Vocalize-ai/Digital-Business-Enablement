@@ -1,4 +1,4 @@
-package br.com.fiap.vocatalk.service;
+package br.com.fiap.vocatalk.services;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -13,8 +13,8 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 
 import br.com.fiap.vocatalk.models.Credencial;
 import br.com.fiap.vocatalk.models.Token;
+import br.com.fiap.vocatalk.repositories.LoginRepository;
 import br.com.fiap.vocatalk.models.Login;
-import br.com.fiap.vocatalk.repository.LoginRepository;
 import jakarta.validation.Valid;
 
 @Service
@@ -30,7 +30,7 @@ public class TokenService {
         Algorithm alg = Algorithm.HMAC256(secret);
         String token = JWT.create()
                     .withSubject(credencial.email())
-                    .withIssuer("MeuJulius")
+                    .withIssuer("VocaTalk")
                     .withExpiresAt(Instant.now().plus(1, ChronoUnit.HOURS))
                     .sign(alg)
                     ;

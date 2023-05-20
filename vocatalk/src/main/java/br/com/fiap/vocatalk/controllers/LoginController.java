@@ -11,17 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.vocatalk.models.Credencial;
 import br.com.fiap.vocatalk.models.Login;
-import br.com.fiap.vocatalk.repository.LoginRepository;
-import br.com.fiap.vocatalk.service.TokenService;
+import br.com.fiap.vocatalk.repositories.LoginRepository;
+import br.com.fiap.vocatalk.services.TokenService;
 import jakarta.validation.Valid;
 
 @RestController
 public class LoginController {
-    
 
     @Autowired
     LoginRepository repository;
-
+    
     @Autowired
     AuthenticationManager manager;
 
@@ -31,16 +30,15 @@ public class LoginController {
     @Autowired
     TokenService tokenService;
 
-
     @PostMapping("/registrar")
-    public ResponseEntity<Login> registrar(@RequestBody @Valid Login login){
+    public ResponseEntity<Login> registrar(@RequestBody @Valid Login login) {
         login.setSenha(encoder.encode(login.getSenha()));
         repository.save(login);
         return ResponseEntity.status(HttpStatus.CREATED).body(login);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody @Valid Credencial credencial){
+    public ResponseEntity<Object> login(@RequestBody @Valid Credencial credencial) {
         manager.authenticate(credencial.toAuthentication());
 
         var token = tokenService.generateToken(credencial);

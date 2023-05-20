@@ -1,10 +1,15 @@
 package br.com.fiap.vocatalk.models;
 
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,18 +47,17 @@ public class ItemFatura {
     @Temporal(TemporalType.DATE)
     private Date adicionado;
 
-    @ManyToOne
-    @JoinColumn(name = "id_plano", nullable = false)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_plano")
     private Plano plano;
 
-    @ManyToMany
-    @JoinTable(
-        name = "t_vt_itens_fat_serv_add", 
-        joinColumns = @JoinColumn(name = "id_item_fatura"), 
-        inverseJoinColumns = @JoinColumn(name = "id_servico_adicional"))
+    @ManyToMany(fetch = FetchType.EAGER)
+        @JoinTable(
+            name = "t_vt_itens_fat_serv_add", 
+            joinColumns = @JoinColumn(name = "id_item_fatura"), 
+            inverseJoinColumns = @JoinColumn(name = "id_servico_adicional"))
     private List<ServicoAdicional> servicosAdicionais;
 
     @OneToOne(mappedBy = "itensFatura")
-    private Fatura Fatura;
-
+    private Fatura fatura;
 }

@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fiap.vocatalk.exception.RestNotFoundException;
+import br.com.fiap.vocatalk.exceptions.RestNotFoundException;
 import br.com.fiap.vocatalk.models.Plano;
-import br.com.fiap.vocatalk.repository.PlanoRepository;
+import br.com.fiap.vocatalk.repositories.PlanoRepository;
 import jakarta.validation.Valid;
 
 @RestController

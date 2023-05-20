@@ -1,4 +1,4 @@
-package br.com.fiap.vocatalk.repository;
+package br.com.fiap.vocatalk.repositories;
 
 import java.util.Optional;
 
