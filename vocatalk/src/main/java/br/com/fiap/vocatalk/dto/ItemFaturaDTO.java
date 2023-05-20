@@ -28,4 +28,5 @@ public class ItemFaturaDTO {
 
     private List<ServicoAdicional> servicosAdicionais;
 
+
 }

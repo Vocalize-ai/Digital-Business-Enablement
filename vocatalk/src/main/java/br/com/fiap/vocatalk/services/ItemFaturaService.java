@@ -37,15 +37,12 @@ public class ItemFaturaService {
         this.servicoAdicionalRepository = servicoAdicionalRepository;
     }
 
-
     public List<ItemFaturaDTO> getAll() {
         List<ItemFatura> itemFaturas = itemFaturaRepository.findAll();
         return itemFaturas.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
-
-
 
     public ItemFaturaDTO create(ItemFaturaDTO itemFaturaDTO) {
         ItemFatura itemFatura = new ItemFatura();
@@ -56,7 +53,6 @@ public class ItemFaturaService {
 
         itemFatura.setStatus('A');
         itemFatura.setAdicionado(LocalDateTime.now());
-
 
         List<ServicoAdicional> servicosAdicionais = new ArrayList<>();
 
@@ -77,6 +73,40 @@ public class ItemFaturaService {
         return itemFaturaSalvoDTO;
     }
 
+    public ItemFaturaDTO getById(Long id) {
+        ItemFatura itemFatura = itemFaturaRepository.findById(id)
+                .orElseThrow(() -> new RestNotFoundException("Item da Fatura não encontrado: " + id));
+        return convertToDto(itemFatura);
+    }
+
+    public ItemFaturaDTO update(Long id, ItemFaturaDTO itemFaturaDTO) {
+        ItemFatura itemFatura = itemFaturaRepository.findById(id)
+                .orElseThrow(() -> new RestNotFoundException("Item da Fatura não encontrado: " + id));
+
+        Plano plano = planoRepository.findById(itemFaturaDTO.getPlano().getId())
+                .orElseThrow(() -> new RestNotFoundException("Plano não encontrado"));
+
+        itemFatura.setStatus(itemFaturaDTO.getStatus());
+        itemFatura.setAdicionado(LocalDateTime.now());
+        itemFatura.setPlano(plano);
+
+        List<ServicoAdicional> servicosAdicionais = new ArrayList<>();
+        for (ServicoAdicional servicoAdicional : itemFaturaDTO.getServicosAdicionais()) {
+            ServicoAdicional servicoAdicionalEncontrado = servicoAdicionalRepository.findById(servicoAdicional.getId())
+                    .orElseThrow(() -> new RestNotFoundException(
+                            "Serviço adicional não encontrado: " + servicoAdicional.getId()));
+            servicosAdicionais.add(servicoAdicionalEncontrado);
+        }
+        itemFatura.setServicosAdicionais(servicosAdicionais);
+
+        ItemFatura itemFaturaAtualizado = itemFaturaRepository.save(itemFatura);
+        return convertToDto(itemFaturaAtualizado);
+    }
+    public void deletePorID(Long id) {
+        ItemFatura itemFatura = itemFaturaRepository.findById(id)
+                .orElseThrow(() -> new RestNotFoundException("Item da Fatura não encontrado: " + id));
+        itemFaturaRepository.delete(itemFatura);
+    }
 
     private ItemFaturaDTO convertToDto(ItemFatura itemFatura) {
         ItemFaturaDTO itemFaturaDTO = new ItemFaturaDTO();
@@ -87,6 +117,5 @@ public class ItemFaturaService {
         itemFaturaDTO.setServicosAdicionais(itemFatura.getServicosAdicionais());
         return itemFaturaDTO;
     }
-
 
 }

@@ -34,8 +34,14 @@ public class DatabaseSeeder implements CommandLineRunner {
         Plano plano1 = new Plano("Combo loco", 25, 13, BigDecimal.valueOf(234), "Plano com internet e ligações");
         planoRepository.save(plano1);
 
+        Plano plano2 = new Plano("Combo dasdsaddsa", 25, 13, BigDecimal.valueOf(123), "Plano com internet e DOIDO");
+        planoRepository.save(plano2);
+
         ServicoAdicional servicoAdicional1 = new ServicoAdicional("Pacote internet - 3GB", BigDecimal.valueOf(23.3), "Pacote de internet 3GB");
         servicoAdicionalRepository.save(servicoAdicional1);
+
+        ServicoAdicional servicoAdicional2 = new ServicoAdicional("Pacote internet - 6GB", BigDecimal.valueOf(58.3), "Pacote de internet 6GB");
+        servicoAdicionalRepository.save(servicoAdicional2);
 
     }
 
