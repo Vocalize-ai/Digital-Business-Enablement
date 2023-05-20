@@ -1,6 +1,6 @@
 package br.com.fiap.vocatalk.models;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -8,6 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import br.com.fiap.vocatalk.dto.LoginDTO;
+import br.com.fiap.vocatalk.dto.LoginInjectDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -52,13 +54,33 @@ public class Login implements UserDetails {
 
     @NotNull(message = "A data não pode ser nula")
     @Column(name="dt_ultimo_login")
-    @Temporal(TemporalType.DATE)
-    private Date ultimoLogin;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime ultimoLogin;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;
 
+
+    
+
+
+    public Login(LoginDTO loginDTO) {
+        this.id = loginDTO.getId();
+        this.email = loginDTO.getEmail();
+        this.ultimoLogin = loginDTO.getUltimoLogin();
+        this.cliente = loginDTO.getCliente();
+    }
+
+
+    
+    public Login(LoginInjectDTO loginDTO) {
+        this.id = loginDTO.getId();
+        this.email = loginDTO.getEmail();
+        this.senha = loginDTO.getSenha();
+        this.ultimoLogin = loginDTO.getUltimoLogin();
+        this.cliente = loginDTO.getCliente();
+    }
 
     @Override
     public String getPassword() {

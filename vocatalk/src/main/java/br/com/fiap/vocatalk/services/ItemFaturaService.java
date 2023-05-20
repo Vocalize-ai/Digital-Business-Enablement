@@ -56,16 +56,19 @@ public class ItemFaturaService {
 
         List<ServicoAdicional> servicosAdicionais = new ArrayList<>();
 
-        for (ServicoAdicional servicoAdicional : itemFaturaDTO.getServicosAdicionais()) {
-            ServicoAdicional servicoAdicionalEncontrado = servicoAdicionalRepository.findById(servicoAdicional.getId())
-                    .orElseThrow(() -> new RestNotFoundException(
-                            "Serviço adicional não encontrado: " + servicoAdicional.getId()));
-            servicosAdicionais.add(servicoAdicionalEncontrado);
+        if (itemFaturaDTO.getServicosAdicionais() != null && !itemFaturaDTO.getServicosAdicionais().isEmpty()) {
+            for (ServicoAdicional servicoAdicional : itemFaturaDTO.getServicosAdicionais()) {
+                ServicoAdicional servicoAdicionalEncontrado = servicoAdicionalRepository
+                        .findById(servicoAdicional.getId())
+                        .orElseThrow(() -> new RestNotFoundException(
+                                "Serviço adicional não encontrado: " + servicoAdicional.getId()));
+                servicosAdicionais.add(servicoAdicionalEncontrado);
+            }
+            itemFatura.setServicosAdicionais(servicosAdicionais);
         }
 
         log.info("cadastrando servicos: " + servicosAdicionais);
         itemFatura.setPlano(plano);
-        itemFatura.setServicosAdicionais(servicosAdicionais);
 
         ItemFatura itemFaturaSalvo = itemFaturaRepository.save(itemFatura);
         ItemFaturaDTO itemFaturaSalvoDTO = new ItemFaturaDTO();
@@ -102,6 +105,7 @@ public class ItemFaturaService {
         ItemFatura itemFaturaAtualizado = itemFaturaRepository.save(itemFatura);
         return convertToDto(itemFaturaAtualizado);
     }
+
     public void deletePorID(Long id) {
         ItemFatura itemFatura = itemFaturaRepository.findById(id)
                 .orElseThrow(() -> new RestNotFoundException("Item da Fatura não encontrado: " + id));

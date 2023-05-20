@@ -9,14 +9,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class TelefoneDTO {
-    
-    private Long id;
+public class ContratarPlanoDTO {
 
-    private String ddd;
+    private Long cliente;
 
-    private String telefone;
+    private Long plano;
 
-    private ClienteDTO cliente;
+    private Long tipoPagamento;
 
 }

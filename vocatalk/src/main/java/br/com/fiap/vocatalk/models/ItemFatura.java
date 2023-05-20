@@ -16,7 +16,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -57,6 +56,6 @@ public class ItemFatura implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "id_servico_adicional"))
     private List<ServicoAdicional> servicosAdicionais;
 
-    @OneToOne(mappedBy = "itensFatura")
-    private Fatura fatura;
+    // @OneToOne(mappedBy = "itemFatura")
+    // private Fatura fatura;
 }

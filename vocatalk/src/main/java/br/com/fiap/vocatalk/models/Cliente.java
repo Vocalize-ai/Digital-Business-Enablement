@@ -1,7 +1,7 @@
 package br.com.fiap.vocatalk.models;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,15 +50,15 @@ public class Cliente implements Serializable {
     private String cpf;
 
     @NotNull(message = "A data não pode ser nula")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "dt_cadastro")
-    private Date dataCadastro;
+    private LocalDateTime dataCadastro;
 
     @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore 
+    @JsonIgnore
     private Login login;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Fatura> fatura = new ArrayList<Fatura>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -67,10 +67,8 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "Cliente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", dataCadastro=" + dataCadastro + ", login="
-                + login + ", fatura=" + fatura + ", telefoneContato=" + telefoneContato + "]";
+        return "Cliente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", dataCadastro=" + dataCadastro
+                + ", telefoneContato=" + telefoneContato + "]";
     }
 
-
-    
 }

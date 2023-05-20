@@ -6,16 +6,21 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
+
+
+  
     
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         return http.authorizeHttpRequests()
             .requestMatchers("/h2-console/**").permitAll()
+            .requestMatchers("/v3/api-docs/**", "/swagger-ui/**"). permitAll()
             .anyRequest().permitAll()
             .and()
             .csrf().disable()
@@ -34,18 +39,6 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        return new PasswordEncoder() {
-
-            @Override
-            public String encode(CharSequence rawPassword) {
-                return rawPassword.toString() + "@";
-            }
-
-            @Override
-            public boolean matches(CharSequence rawPassword, String encodedPassword) {
-                return encodedPassword.equals(encode(rawPassword));
-            }
-
-        };
+        return new BCryptPasswordEncoder();
     }
 }

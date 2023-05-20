@@ -21,26 +21,31 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="t_vt_telefone_contato")
-public class Telefone implements Serializable{
-    
+@Table(name = "t_vt_telefone_contato")
+public class Telefone implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_telefone_contato")
+    @Column(name = "id_telefone_contato")
     private Long id;
 
     @Size(min = 2, max = 2)
     @NotBlank(message = "O ddd dever tem que ser preenchido")
-    @Column(name="nr_ddd")
+    @Column(name = "nr_ddd")
     private String ddd;
 
     @Size(min = 8, max = 10)
     @NotBlank(message = "O telefone tem que ser preenchida")
-    @Column(name="nr_telefone",unique = true)
+    @Column(name = "nr_telefone", unique = true)
     private String telefone;
 
     @OneToOne(mappedBy = "telefoneContato")
-    @JsonIgnore 
+    @JsonIgnore
     private Cliente cliente;
+
+    @Override
+    public String toString() {
+        return "Telefone [id=" + id + ", numero=" + telefone + "]";
+    }
 
 }

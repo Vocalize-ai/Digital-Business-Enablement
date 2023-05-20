@@ -1,5 +1,4 @@
 package br.com.fiap.vocatalk.controllers;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,68 +13,59 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.fiap.vocatalk.dto.FaturaDTO;
 import br.com.fiap.vocatalk.exceptions.RestNotFoundException;
-import br.com.fiap.vocatalk.models.Cliente;
-import br.com.fiap.vocatalk.models.Fatura;
-import br.com.fiap.vocatalk.repositories.ClienteRepository;
-import br.com.fiap.vocatalk.repositories.FaturaRepository;
-import jakarta.validation.Valid;
+import br.com.fiap.vocatalk.services.FaturaService;
 
 @RestController
-@RequestMapping("/fatura")
+@RequestMapping("/faturas")
 public class FaturaController {
 
-    @Autowired
-    FaturaRepository repository;
+    private final FaturaService faturaService;
 
     @Autowired
-    ClienteRepository clienteRepository;
+    public FaturaController(FaturaService faturaService) {
+        this.faturaService = faturaService;
+    }
 
     @GetMapping
-    public List<Fatura> todasFaturas() {
-        return repository.findAll();
-    }
-
-    @PostMapping("/cliente/{idCliente}")
-    public ResponseEntity<Fatura> criarFatura(@PathVariable Long idCliente, @RequestBody Fatura fatura) {
-        Cliente cliente = clienteRepository.findById(idCliente)
-                .orElseThrow(() -> new RestNotFoundException("Cliente não encontrado"));
-
-        fatura.setCliente(cliente);
-        System.out.println(fatura);
-        repository.save(fatura);
-
-        return ResponseEntity.ok(fatura);
-    }
-
-    @PostMapping
-    public ResponseEntity<Fatura> cadastraFatura(@RequestBody @Valid Fatura fatura) {
-        repository.save(fatura);
-        return ResponseEntity.status(HttpStatus.CREATED).body(fatura);
+    public ResponseEntity<List<FaturaDTO>> getAllFaturas() {
+        List<FaturaDTO> faturas = faturaService.getAll();
+        return ResponseEntity.ok(faturas);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Fatura> encontraFaturaPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(getFatura(id));
+    public ResponseEntity<FaturaDTO> getFaturaById(@PathVariable Long id) {
+        try {
+            FaturaDTO fatura = faturaService.getById(id);
+            return ResponseEntity.ok(fatura);
+        } catch (RestNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Fatura> removeFatura(@PathVariable Long id) {
-
-        repository.delete(getFatura(id));
-        return ResponseEntity.noContent().build();
+    @PostMapping
+    public ResponseEntity<FaturaDTO> createFatura(@RequestBody FaturaDTO faturaDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(faturaService.create(faturaDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Fatura> atualizaFatura(@PathVariable Long id, @RequestBody @Valid Fatura fatura) {
-        getFatura(id);
-        fatura.setId(id);
-        repository.save(fatura);
-        return ResponseEntity.ok(fatura);
+    public ResponseEntity<FaturaDTO> updateFatura(@PathVariable Long id, @RequestBody FaturaDTO faturaDTO) {
+        try {
+            FaturaDTO faturaAtualizada = faturaService.update(id, faturaDTO);
+            return ResponseEntity.ok(faturaAtualizada);
+        } catch (RestNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    private Fatura getFatura(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RestNotFoundException("Fatura não encontrada"));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteFatura(@PathVariable Long id) {
+        try {
+            faturaService.delete(id);
+            return ResponseEntity.noContent().build();
+        } catch (RestNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

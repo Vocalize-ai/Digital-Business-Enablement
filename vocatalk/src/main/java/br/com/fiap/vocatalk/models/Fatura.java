@@ -2,11 +2,12 @@ package br.com.fiap.vocatalk.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -39,15 +40,14 @@ public class Fatura implements Serializable {
 
     @NotNull(message = "A data de vencimento da fatura não pode ser nulo")
     @Column(name = "dt_vencimento")
-    @Temporal(TemporalType.DATE)
-    private Date dataVencimento;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime dataVencimento;
 
-    @NotNull(message = "A data de pagamento da fatura não pode ser nulo")
     @Column(name = "dt_pagamento")
-    @Temporal(TemporalType.DATE)
-    private Date dataPagamento;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime dataPagamento;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
@@ -55,8 +55,8 @@ public class Fatura implements Serializable {
     @JoinColumn(name = "id_tipo_pagamento")
     private TipoPagamento tipoPagamento;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_item_fatura")
-    private ItemFatura itensFatura;
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_itens_fatura")
+    private ItemFatura itemFatura;
 
 }

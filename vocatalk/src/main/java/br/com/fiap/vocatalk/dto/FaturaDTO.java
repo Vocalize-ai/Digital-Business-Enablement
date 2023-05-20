@@ -1,11 +1,8 @@
 package br.com.fiap.vocatalk.dto;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
-import br.com.fiap.vocatalk.models.Cliente;
-import br.com.fiap.vocatalk.models.TipoPagamento;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -21,17 +18,16 @@ public class FaturaDTO {
 
     private Long id;
 
-    @NotNull(message = "O valor da fatura não pode ser nulo")
     private BigDecimal valor;
 
-    @NotNull(message = "A data de vencimento da fatura não pode ser nulo")
-    private Date dataVencimento;
+    private LocalDateTime dataVencimento;
 
-    @NotNull(message = "A data de pagamento da fatura não pode ser nulo")
-    private Date dataPagamento;
+    private LocalDateTime dataPagamento;
 
-    private Cliente cliente;
+    private ClienteDTO cliente;
 
-    private TipoPagamento tipoPagamento;
+    private TipoPagamentoDTO tipoPagamento;
+
+    private ItemFaturaDTO itemFatura;
 
 }
