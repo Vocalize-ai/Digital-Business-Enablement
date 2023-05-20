@@ -1,17 +1,13 @@
 package br.com.fiap.vocatalk.models;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -26,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "T_VT_SERVICO_ADICIONAL")
 
-public class ServicoAdicional {
+public class ServicoAdicional implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,8 +43,8 @@ public class ServicoAdicional {
     @Column(name = "ds_servico_adional")
     private String descricao;
 
-    @ManyToMany(mappedBy = "servicosAdicionais")
-    private List<ItemFatura> itensFatura;
+    // @ManyToMany(mappedBy = "servicosAdicionais")
+    // private List<ItemFatura> itensFatura;
 
     public ServicoAdicional(String nome, BigDecimal valor, String descricao) {
         this.nome = nome;

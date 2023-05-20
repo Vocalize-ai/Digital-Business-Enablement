@@ -1,10 +1,9 @@
 package br.com.fiap.vocatalk.models;
 
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -31,7 +30,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "t_vt_itens_fatura")
-public class ItemFatura {
+public class ItemFatura implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,10 +43,10 @@ public class ItemFatura {
 
     @NotNull(message = "A data não pode ser nula")
     @Column(name = "dt_item_adicionado")
-    @Temporal(TemporalType.DATE)
-    private Date adicionado;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime adicionado;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_plano")
     private Plano plano;
 

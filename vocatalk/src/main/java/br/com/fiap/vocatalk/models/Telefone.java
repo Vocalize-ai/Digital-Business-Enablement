@@ -1,5 +1,7 @@
 package br.com.fiap.vocatalk.models;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -20,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name="t_vt_telefone_contato")
-public class Telefone {
+public class Telefone implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

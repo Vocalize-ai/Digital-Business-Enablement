@@ -1,16 +1,13 @@
 package br.com.fiap.vocatalk.models;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -26,7 +23,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "T_VT_PLANO")
-public class Plano {
+public class Plano implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,8 +51,9 @@ public class Plano {
     @Column(name = "vlr_mensal", precision = 10, scale = 2)
     private BigDecimal valorMensal;
 
-    @OneToMany(mappedBy = "plano", fetch = FetchType.EAGER)
-    private List<ItemFatura> itemFatura;
+    // @JsonIgnore
+    // @OneToMany(mappedBy = "plano")
+    // private List<ItemFatura> itemFatura;
 
     @Size(min = 0, max = 60)
     @Column(name = "ds_plano")

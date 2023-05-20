@@ -1,6 +1,7 @@
 package br.com.fiap.vocatalk.models;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "t_vt_tipo_pagamento")
-public class TipoPagamento {
+public class TipoPagamento implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
