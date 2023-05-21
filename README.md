@@ -31,7 +31,7 @@
 # Endpoints: 
 ### Neste link está estruturado todos os endpoints que serão utilizados na aplicação.
 ### Documento: 
-- [clique para visualizar](https://drive.google.com/file/d/1ih5kxVb9jc8gf2ox4NA0DZxZmoFyc06O/view?usp=share_link) 
+- [clique para visualizar](https://app.swaggerhub.com/apis-docs/LUANSSRR/VocaTalk/1.0.1#/) 
 # Aquitetura do projeto:
 
 <div id="arquitetura-projeto">

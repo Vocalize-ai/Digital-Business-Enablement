@@ -2,8 +2,6 @@ package br.com.fiap.vocatalk.dto;
 
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
-
 import br.com.fiap.vocatalk.models.Cliente;
 import br.com.fiap.vocatalk.models.Login;
 import io.swagger.v3.oas.annotations.media.Schema;

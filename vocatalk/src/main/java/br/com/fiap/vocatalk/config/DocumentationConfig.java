@@ -20,7 +20,7 @@ public class DocumentationConfig {
                     .title("Vocatalk API")
                     .version("v1")
                     .description("API do vocaTalk uma aplicação de exemplo para o projeto vocalize")
-                    .contact(new Contact().name("Joao Carlos").email("rm94898@fiap.com.br"))
+                    .contact(new Contact().name("Luan Reis").email("rm94898@fiap.com.br"))
                     .license(new License().name("MIT Open Source").url("http://vocatalk.com/licenca"))
                 )
                 .components(new Components()
