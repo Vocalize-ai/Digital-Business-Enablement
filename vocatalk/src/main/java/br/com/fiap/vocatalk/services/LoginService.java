@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,7 +25,6 @@ public class LoginService {
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
 
-    @Autowired
     public LoginService(LoginRepository loginRepository, AuthenticationManager authenticationManager,
                         PasswordEncoder passwordEncoder, TokenService tokenService) {
         this.loginRepository = loginRepository;

@@ -1,7 +1,6 @@
 package br.com.fiap.vocatalk.services;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.vocatalk.dto.PlanoDTO;
@@ -13,7 +12,6 @@ public class PlanoService {
 
     private final PlanoRepository planoRepository;
 
-    @Autowired
     public PlanoService(PlanoRepository planoRepository) {
         this.planoRepository = planoRepository;
     }
