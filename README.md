@@ -35,5 +35,5 @@
 # Aquitetura do projeto:
 
 <div id="arquitetura-projeto">
-    <img src="https://drive.google.com/file/d/152k7xau1HqqNvlq1wl_wRs9hGVd6rkWT/view?usp=sharing"></img>
+    <img src="https://lh3.googleusercontent.com/u/0/drive-viewer/AFGJ81orCRA8HetgNLcHiwSmCiOVlcnfYvnLeLivI99MI-2_y8QN0hwUjEHS_7J7f26ohPjhsNaQ-7ii2SnnSfeVq-r7-eXbYg=w1366-h657"></img>
 </div>
