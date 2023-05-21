@@ -1,5 +1,6 @@
 package br.com.fiap.vocatalk.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,9 @@ import jakarta.validation.Valid;
 @Tag(name = "Login", description = "API para autenticação e gerenciamento de login")
 public class LoginController {
 
-    private final LoginService loginService;
+
+    @Autowired
+    LoginService loginService;
 
     public LoginController(LoginService loginService) {
         this.loginService = loginService;

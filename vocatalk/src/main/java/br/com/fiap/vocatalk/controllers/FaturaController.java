@@ -2,6 +2,7 @@ package br.com.fiap.vocatalk.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +26,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Fatura", description = "API para gerenciamento de faturas")
 public class FaturaController {
 
-    private final FaturaService faturaService;
+    @Autowired
+    FaturaService faturaService;
 
     public FaturaController(FaturaService faturaService) {
         this.faturaService = faturaService;

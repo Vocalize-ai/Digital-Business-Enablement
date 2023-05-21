@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.vocatalk.dto.ClienteDTO;
@@ -24,20 +25,19 @@ import br.com.fiap.vocatalk.repositories.TipoPagamentoRepository;
 @Service
 public class ContratarPlanoService {
 
-        private final ClienteRepository clienteRepository;
-        private final PlanoRepository planoRepository;
-        private final FaturaService faturaService;
-        private final TipoPagamentoRepository tipoPagamentoRepository;
+        @Autowired
+        ClienteRepository clienteRepository;
+
+        @Autowired
+        PlanoRepository planoRepository;
+
+        @Autowired
+        FaturaService faturaService;
+
+        @Autowired
+        TipoPagamentoRepository tipoPagamentoRepository;
 
         Logger log = LoggerFactory.getLogger(getClass());
-
-        public ContratarPlanoService(ClienteRepository clienteRepository, PlanoRepository planoRepository,
-                        FaturaService faturaService, TipoPagamentoRepository tipoPagamentoRepository) {
-                this.clienteRepository = clienteRepository;
-                this.planoRepository = planoRepository;
-                this.faturaService = faturaService;
-                this.tipoPagamentoRepository = tipoPagamentoRepository;
-        }
 
         public FaturaDTO contratarPlano(ContratarPlanoDTO contratarPlanoDTO) {
                 Long clienteId = contratarPlanoDTO.getCliente();

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.vocatalk.dto.ItemFaturaDTO;
@@ -22,18 +23,16 @@ import br.com.fiap.vocatalk.repositories.ServicoAdicionalRepository;
 @Service
 public class ItemFaturaService {
 
-    private final ItemFaturaRepository itemFaturaRepository;
-    private final PlanoRepository planoRepository;
-    private final ServicoAdicionalRepository servicoAdicionalRepository;
+    @Autowired
+    ItemFaturaRepository itemFaturaRepository;
+
+    @Autowired
+    PlanoRepository planoRepository;
+
+    @Autowired
+    ServicoAdicionalRepository servicoAdicionalRepository;
 
     Logger log = LoggerFactory.getLogger(getClass());
-
-    public ItemFaturaService(ItemFaturaRepository itemFaturaRepository, PlanoRepository planoRepository,
-            ServicoAdicionalRepository servicoAdicionalRepository) {
-        this.itemFaturaRepository = itemFaturaRepository;
-        this.planoRepository = planoRepository;
-        this.servicoAdicionalRepository = servicoAdicionalRepository;
-    }
 
     public List<ItemFaturaDTO> getAll() {
         List<ItemFatura> itemFaturas = itemFaturaRepository.findAll();

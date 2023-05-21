@@ -1,6 +1,7 @@
 package br.com.fiap.vocatalk.services;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.vocatalk.dto.ServicoAdicionalDTO;
@@ -10,7 +11,8 @@ import br.com.fiap.vocatalk.repositories.ServicoAdicionalRepository;
 @Service
 public class ServicoAdicionalService {
 
-    private final ServicoAdicionalRepository servicoAdicionalRepository;
+    @Autowired
+    ServicoAdicionalRepository servicoAdicionalRepository;
 
     public ServicoAdicionalService(ServicoAdicionalRepository servicoAdicionalRepository) {
         this.servicoAdicionalRepository = servicoAdicionalRepository;

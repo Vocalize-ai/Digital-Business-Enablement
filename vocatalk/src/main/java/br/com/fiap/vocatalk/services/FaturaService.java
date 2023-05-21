@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.vocatalk.dto.ClienteDTO;
@@ -27,21 +28,19 @@ import br.com.fiap.vocatalk.repositories.TipoPagamentoRepository;
 @Service
 public class FaturaService {
 
-    private final FaturaRepository faturaRepository;
-    private final ClienteRepository clienteRepository;
-    private final TipoPagamentoRepository tipoPagamentoRepository;
-    private final ItemFaturaService itemFaturaService;
+    @Autowired
+    FaturaRepository faturaRepository;
+
+    @Autowired
+    ClienteRepository clienteRepository;
+
+    @Autowired
+    TipoPagamentoRepository tipoPagamentoRepository;
+
+    @Autowired
+    ItemFaturaService itemFaturaService;
 
     Logger log = LoggerFactory.getLogger(getClass());
-
-    public FaturaService(FaturaRepository faturaRepository, ClienteRepository clienteRepository,
-            TipoPagamentoRepository tipoPagamentoRepository, ItemFaturaService itemFaturaService) {
-        this.faturaRepository = faturaRepository;
-        this.clienteRepository = clienteRepository;
-        this.tipoPagamentoRepository = tipoPagamentoRepository;
-        this.itemFaturaService = itemFaturaService;
-
-    }
 
     public List<FaturaDTO> getAll() {
         List<Fatura> faturas = faturaRepository.findAll();

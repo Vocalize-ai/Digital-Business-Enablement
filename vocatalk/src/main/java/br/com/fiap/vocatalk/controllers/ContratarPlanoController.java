@@ -1,5 +1,6 @@
 package br.com.fiap.vocatalk.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,11 +22,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Contratar Plano", description = "API para contratação de planos")
 public class ContratarPlanoController {
 
-    private final ContratarPlanoService contratarPlanoService;
-
-    public ContratarPlanoController(ContratarPlanoService contratarPlanoService) {
-        this.contratarPlanoService = contratarPlanoService;
-    }
+    @Autowired
+    ContratarPlanoService contratarPlanoService;
 
     @PostMapping("/contratar-plano")
     @ApiResponses(value = {

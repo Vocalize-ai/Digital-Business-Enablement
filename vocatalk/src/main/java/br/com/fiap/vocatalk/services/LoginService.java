@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,19 +20,19 @@ public class LoginService {
 
     Logger log = LoggerFactory.getLogger(getClass());
 
+    @Autowired
+    LoginRepository loginRepository;
 
-    private final LoginRepository loginRepository;
-    private final AuthenticationManager authenticationManager;
-    private final PasswordEncoder passwordEncoder;
-    private final TokenService tokenService;
+    @Autowired
+    AuthenticationManager authenticationManager;
 
-    public LoginService(LoginRepository loginRepository, AuthenticationManager authenticationManager,
-                        PasswordEncoder passwordEncoder, TokenService tokenService) {
-        this.loginRepository = loginRepository;
-        this.authenticationManager = authenticationManager;
-        this.passwordEncoder = passwordEncoder;
-        this.tokenService = tokenService;
-    }
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
+    TokenService tokenService;
+
+
 
     public LoginDTO registrar(LoginInjectDTO login) {
 
