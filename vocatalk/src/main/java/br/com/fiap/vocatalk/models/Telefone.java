@@ -2,9 +2,6 @@ package br.com.fiap.vocatalk.models;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,23 +25,19 @@ public class Telefone implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_telefone_contato")
-    @Schema(example = "1")
     private Long id;
 
     @Size(min = 2, max = 2)
     @NotBlank(message = "O ddd dever tem que ser preenchido")
     @Column(name = "nr_ddd")
-    @Schema(example = "11")
     private String ddd;
 
     @Size(min = 8, max = 10)
     @NotBlank(message = "O telefone tem que ser preenchida")
     @Column(name = "nr_telefone", unique = true)
-    @Schema(example = "960313120")
     private String telefone;
 
     @OneToOne(mappedBy = "telefoneContato")
-    @JsonIgnore
     private Cliente cliente;
 
     @Override

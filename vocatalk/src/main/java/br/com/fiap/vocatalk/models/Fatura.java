@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,23 +32,19 @@ public class Fatura implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_fatura")
-    @Schema(example = "1")
     private Long id;
 
     @NotNull(message = "O valor da fatura não pode ser nulo")
     @Column(name = "vlr_fatura", precision = 10, scale = 2)
-    @Schema(example = "323.00")
     private BigDecimal valor;
 
     @NotNull(message = "A data de vencimento da fatura não pode ser nulo")
     @Column(name = "dt_vencimento")
     @Temporal(TemporalType.TIMESTAMP)
-    @Schema(example = "2023-05-20T10:30:00")
     private LocalDateTime dataVencimento;
 
     @Column(name = "dt_pagamento")
     @Temporal(TemporalType.TIMESTAMP)
-    @Schema(example = "2023-05-20T10:30:00")
     private LocalDateTime dataPagamento;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
@@ -64,4 +59,9 @@ public class Fatura implements Serializable {
     @JoinColumn(name = "id_itens_fatura")
     private ItemFatura itemFatura;
 
+    @Override
+    public String toString() {
+        return "Fatura [id=" + id + ", valor=" + valor + ", dataVencimento=" + dataVencimento + ", dataPagamento="
+                + dataPagamento + "]";
+    }
 }

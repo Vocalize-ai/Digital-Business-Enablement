@@ -40,7 +40,7 @@ public class TokenService {
     public Login getValidateUser(String token) {
         Algorithm alg = Algorithm.HMAC256(secret);
         var email = JWT.require(alg)
-                    .withIssuer("MeuJulius")
+                    .withIssuer("VocaTalk")
                     .build()
                     .verify(token)
                     .getSubject()

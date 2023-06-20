@@ -8,9 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import br.com.fiap.vocatalk.dto.LoginDTO;
-import br.com.fiap.vocatalk.dto.LoginInjectDTO;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,57 +32,32 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="v_vt_login")
+@Table(name = "v_vt_login")
 public class Login implements UserDetails {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_login")
-    @Schema(example = "1")
     private Long id;
-
-    @NotBlank(message = "O e-mail tem que ser preenchido")
-    @Email
-    @Column(name = "ds_email", unique = true)
-    @Schema(example = "luan.reis@rm.com")
-    private String email;
-
-    @NotBlank(message = "A senha tem que ser preenchida")
-    @Size(min = 8)
-    @Column(name="ds_senha")
-    @Schema(example = "23131321321")
-    private String senha;
-
-    @NotNull(message = "A data não pode ser nula")
-    @Column(name="dt_ultimo_login")
-    @Temporal(TemporalType.TIMESTAMP)
-    @Schema(example = "2023-05-20T10:30:00")
-    private LocalDateTime ultimoLogin;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;
 
+    @NotBlank(message = "O e-mail tem que ser preenchido")
+    @Email
+    @Column(name = "ds_email", unique = true)
+    private String email;
 
-    
+    @NotBlank(message = "A senha tem que ser preenchida")
+    @Size(min = 8)
+    @Column(name = "ds_senha")
+    private String senha;
 
-
-    public Login(LoginDTO loginDTO) {
-        this.id = loginDTO.getId();
-        this.email = loginDTO.getEmail();
-        this.ultimoLogin = loginDTO.getUltimoLogin();
-        this.cliente = loginDTO.getCliente();
-    }
-
-
-    
-    public Login(LoginInjectDTO loginDTO) {
-        this.id = loginDTO.getId();
-        this.email = loginDTO.getEmail();
-        this.senha = loginDTO.getSenha();
-        this.ultimoLogin = loginDTO.getUltimoLogin();
-        this.cliente = loginDTO.getCliente();
-    }
+    @NotNull(message = "A data não pode ser nula")
+    @Column(name = "dt_ultimo_login")
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime ultimoLogin;
 
     @Override
     public String getPassword() {
@@ -124,11 +96,7 @@ public class Login implements UserDetails {
 
     @Override
     public String toString() {
-        return "Login [id=" + id + ", email=" + email + ", senha=" + senha + ", ultimoLogin=" + ultimoLogin
-                + ", cliente=" + cliente + "]";
+        return "Login [id=" + id + ", email=" + email + ", senha=" + senha + ", ultimoLogin=" + ultimoLogin + "]";
     }
-
-
-    
 
 }
