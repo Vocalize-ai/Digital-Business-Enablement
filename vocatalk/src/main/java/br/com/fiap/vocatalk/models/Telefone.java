@@ -2,6 +2,7 @@ package br.com.fiap.vocatalk.models;
 
 import java.io.Serializable;
 
+import br.com.fiap.vocatalk.dto.requestDTO.TelefoneRequestDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,12 +38,17 @@ public class Telefone implements Serializable {
     @Column(name = "nr_telefone", unique = true)
     private String telefone;
 
-    @OneToOne(mappedBy = "telefoneContato")
+    @OneToOne(mappedBy = "telefone")
     private Cliente cliente;
 
     @Override
     public String toString() {
         return "Telefone [id=" + id + ", numero=" + telefone + "]";
+    }
+
+    public Telefone(TelefoneRequestDTO telefone) {
+        this.ddd = telefone.getDdd();
+        this.telefone = telefone.getTelefone();
     }
 
 }

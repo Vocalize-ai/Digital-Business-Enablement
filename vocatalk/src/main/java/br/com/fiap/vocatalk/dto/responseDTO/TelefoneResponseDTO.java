@@ -2,6 +2,7 @@ package br.com.fiap.vocatalk.dto.responseDTO;
 
 import org.springframework.hateoas.RepresentationModel;
 
+import br.com.fiap.vocatalk.models.Telefone;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,11 @@ public class TelefoneResponseDTO extends RepresentationModel<TelefoneResponseDTO
     @Schema(description = "Número de telefone", example = "999999999")
     private String telefone;
 
-    @NotNull
-    @Schema(description = "Numero do id do cliente", example = "1")
-    private Long cliente;
+
+
+    public TelefoneResponseDTO(Telefone telefone){
+        this.id = telefone.getId();
+        this.ddd = telefone.getDdd();
+        this.telefone = telefone.getTelefone();
+    }
 }

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.fiap.vocatalk.dto.requestDTO.ClienteRequestDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +19,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -33,7 +35,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "t_vt_cliente")
+@Table(name = "t_vt_cliente", uniqueConstraints = @UniqueConstraint(columnNames = "nr_cpf"))
 public class Cliente implements Serializable {
 
     @Id
@@ -64,12 +66,18 @@ public class Cliente implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_telefone_contato")
-    private Telefone telefoneContato;
+    private Telefone telefone;
 
     @Override
     public String toString() {
         return "Cliente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", dataCadastro=" + dataCadastro
-                + ", telefoneContato=" + telefoneContato + "]";
+                + ", telefoneContato=" + telefone + "]";
+    }
+
+    public Cliente(ClienteRequestDTO cliente) {
+        this.nome = cliente.getNome();
+        this.cpf = cliente.getCpf();
+        this.telefone = new Telefone(cliente.getTelefone());
     }
 
 }

@@ -49,12 +49,15 @@ public class ItemFatura implements Serializable {
     @JoinTable(name = "t_vt_itens_fat_serv_add", joinColumns = @JoinColumn(name = "id_item_fatura"), inverseJoinColumns = @JoinColumn(name = "id_servico_adicional"))
     private List<ServicoAdicional> servicosAdicionais;
 
+    @Column(name = "st_item")
+    private Character status;
+
     @OneToOne(mappedBy = "itemFatura")
     private Fatura fatura;
 
     @Override
     public String toString() {
-        return "ItemFatura [id=" + id + ", status=" + ", dataAdicionado=" + dataAdicionado + "]";
+        return "ItemFatura [id=" + id + ", status=" + status + ", dataAdicionado=" + dataAdicionado + "]";
     }
 
 }

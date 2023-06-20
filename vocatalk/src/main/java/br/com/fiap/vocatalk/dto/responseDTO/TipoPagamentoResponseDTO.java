@@ -2,6 +2,7 @@ package br.com.fiap.vocatalk.dto.responseDTO;
 
 import org.springframework.hateoas.RepresentationModel;
 
+import br.com.fiap.vocatalk.models.TipoPagamento;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,5 +29,11 @@ public class TipoPagamentoResponseDTO extends RepresentationModel<TipoPagamentoR
 
     @Schema(description = "Descrição do nome do tipo de pagamento")
     private String descricao;
+
+    public TipoPagamentoResponseDTO(TipoPagamento tipoPagamento) {
+        this.id = tipoPagamento.getId();
+        this.nome = tipoPagamento.getNome();
+        this.descricao = tipoPagamento.getDescricao();
+    }
 
 }

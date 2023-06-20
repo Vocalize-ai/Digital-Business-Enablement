@@ -1,12 +1,11 @@
 package br.com.fiap.vocatalk.dto.responseDTO;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import org.springframework.hateoas.RepresentationModel;
 
+import br.com.fiap.vocatalk.models.ServicoAdicional;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -37,8 +36,11 @@ public class ServicoAdicionalResponseDTO extends RepresentationModel<ServicoAdic
     @Schema(description = "Descrição do plano")
     private String descricao;
 
-    @Schema(description = "Itens da fatura associados ao plano")
-    @Valid
-    private List<ItemFaturaResponseDTO> itensFatura;
+    public ServicoAdicionalResponseDTO(ServicoAdicional servicoAdicional) {
+        this.id = servicoAdicional.getId();
+        this.nome = servicoAdicional.getNome();
+        this.valor = servicoAdicional.getValor();
+        this.descricao = servicoAdicional.getDescricao();
+    }
 
 }

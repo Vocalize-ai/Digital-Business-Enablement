@@ -2,9 +2,11 @@ package br.com.fiap.vocatalk.dto.responseDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.hateoas.RepresentationModel;
 
+import br.com.fiap.vocatalk.models.ItemFatura;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -40,5 +42,17 @@ public class ItemFaturaResponseDTO extends RepresentationModel<ItemFaturaRespons
     @NotNull
     @Valid
     private FaturaResponseDTO fatura;
+
+    public ItemFaturaResponseDTO(ItemFatura itemFatura) {
+        this.id = itemFatura.getId();
+        this.status = itemFatura.getStatus();
+        this.dataAdicionado = itemFatura.getDataAdicionado();
+        this.plano = new PlanoResponseDTO(itemFatura.getPlano());
+        this.servicosAdicionais = itemFatura.getServicosAdicionais()
+                .stream()
+                .map(ServicoAdicionalResponseDTO::new)
+                .collect(Collectors.toList());
+        this.fatura = new FaturaResponseDTO(itemFatura.getFatura());
+    }
 
 }

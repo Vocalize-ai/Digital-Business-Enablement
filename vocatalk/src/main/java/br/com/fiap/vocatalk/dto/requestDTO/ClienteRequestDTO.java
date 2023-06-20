@@ -31,9 +31,5 @@ public class ClienteRequestDTO {
     @Valid
     private TelefoneRequestDTO telefone;
 
-    @Override
-    public String toString() {
-        return "ClienteRequestDTO [nome=" + nome + ", cpf=" + cpf + ", dataCadastro=" + "]";
-    }
 
 }

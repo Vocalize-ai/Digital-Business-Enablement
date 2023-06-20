@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import org.springframework.hateoas.RepresentationModel;
 
+import br.com.fiap.vocatalk.models.Plano;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -40,4 +41,13 @@ public class PlanoResponseDTO extends RepresentationModel<PlanoResponseDTO> {
     @Schema(description = "Valor mensal do plano")
     @NotNull
     private BigDecimal valorMensal;
+
+    public PlanoResponseDTO(Plano plano) {
+        this.id = plano.getId();
+        this.nome = plano.getNome();
+        this.quantidadeMinutos = plano.getQuantidadeMinutos();
+        this.quantidadeInternet = plano.getQuantidadeInternet();
+        this.valorMensal = plano.getValorMensal();
+    }
+
 }

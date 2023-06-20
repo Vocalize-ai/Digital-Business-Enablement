@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.hateoas.RepresentationModel;
 
+import br.com.fiap.vocatalk.models.Fatura;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -48,5 +49,14 @@ public class FaturaResponseDTO extends RepresentationModel<FaturaResponseDTO> {
     @Schema(description = "Mostra se já foi paga", example = "false")
     @NotNull
     private boolean faturado;
+
+    public FaturaResponseDTO(Fatura fatura) {
+        this.dataVencimento = fatura.getDataVencimento();
+        this.dataPagamento = fatura.getDataPagamento();
+        this.cliente = fatura.getCliente().getId();
+        this.tipoPagamento = new TipoPagamentoResponseDTO(fatura.getTipoPagamento());
+        this.itemFatura = new ItemFaturaResponseDTO(fatura.getItemFatura());
+        this.faturado = fatura.getDataPagamento() != null;
+    }
 
 }
